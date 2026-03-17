@@ -1,0 +1,20 @@
+options {
+    // The directory where BIND stores its working files
+    directory "/var/cache/bind";
+
+    // Forwarders — if BIND doesn't know the answer locally,
+    // it forwards the query to these public DNS servers.
+    // 8.8.8.8 = Google DNS, 1.1.1.1 = Cloudflare DNS
+    forwarders {
+        8.8.8.8;
+        1.1.1.1;
+    };
+
+    // Allow any machine to query this DNS server.
+    // In production you would restrict this to your networks only.
+    allow-query { any; };
+
+    // dnssec-validation — security feature for DNS.
+    // "auto" means use the built-in trust anchors.
+    dnssec-validation auto;
+};

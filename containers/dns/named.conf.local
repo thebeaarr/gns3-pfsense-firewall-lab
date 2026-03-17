@@ -1,0 +1,9 @@
+// This file declares the zones this DNS server manages.
+// A zone = a domain that this server is authoritative for.
+
+// Forward zone — resolves names to IPs
+// When someone queries "something.dmz.local" this zone answers.
+zone "dmz.local" {
+    type master;                    // this server is the authority
+    file "/etc/bind/db.dmz.local";  // zone records are in this file
+};

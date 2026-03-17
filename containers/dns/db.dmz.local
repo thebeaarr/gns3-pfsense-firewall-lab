@@ -1,0 +1,30 @@
+; ============================================================
+; ZONE FILE for dmz.local
+; This file contains the actual DNS records.
+; Lines starting with ; are comments in DNS zone files.
+; ============================================================
+
+; SOA — Start of Authority
+; Defines general info about this zone.
+; Serial number must be incremented every time you make changes.
+$TTL 604800
+@   IN  SOA     ns1.dmz.local. admin.dmz.local. (
+                2024010101  ; Serial   — version number of this zone
+                604800      ; Refresh  — how often slaves check for updates
+                86400       ; Retry    — how long to wait before retrying
+                2419200     ; Expire   — when to stop answering if master unreachable
+                604800 )    ; Negative TTL — how long to cache "not found" answers
+
+; ============================================================
+; NS RECORD — declares which server is the nameserver for this zone
+; ============================================================
+@       IN  NS      ns1.dmz.local.
+
+; ============================================================
+; A RECORDS — maps hostnames to IP addresses
+; This is the core of DNS — name → IP
+; ============================================================
+ns1         IN  A   192.168.0.5   ; DNS server itself
+web         IN  A   192.168.0.3   ; Web server (nginx)
+ftp         IN  A   192.168.0.2   ; FTP server
+mail        IN  A   192.168.0.4   ; Mail server

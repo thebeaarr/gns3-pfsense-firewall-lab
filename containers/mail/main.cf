@@ -1,0 +1,59 @@
+# ============================================================
+# POSTFIX MAIN CONFIGURATION
+# ============================================================
+
+# ============================================================
+# IDENTITY SETTINGS
+#
+# myhostname → the fully qualified domain name of this server
+#              Other mail servers use this to identify us.
+#
+# mydomain   → the mail domain we handle
+#              Emails to @dmz.local are handled by this server.
+#
+# myorigin   → domain appended to emails sent without a domain
+#              Example: mail from "mailuser" becomes "mailuser@dmz.local"
+# ============================================================
+myhostname = mail.dmz.local
+mydomain = dmz.local
+myorigin = $mydomain
+
+# ============================================================
+# NETWORK SETTINGS
+#
+# inet_interfaces = all → listen on all network interfaces
+#                         so any machine in GNS3 can reach us
+#
+# inet_protocols = ipv4 → only use IPv4 (no IPv6 in our lab)
+# ============================================================
+inet_interfaces = all
+inet_protocols = ipv4
+
+# ============================================================
+# DELIVERY SETTINGS
+#
+# mydestination → list of domains this server accepts mail FOR
+#                 Mail to these domains gets delivered locally
+#                 instead of being forwarded elsewhere.
+# ============================================================
+
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+
+# ============================================================
+# RELAY SETTINGS
+#
+# mynetworks → which networks are allowed to relay mail through us
+#              We allow our DMZ and admin networks.
+#              Machines outside these ranges cannot use us as relay.
+# ============================================================
+mynetworks = 127.0.0.0/8, 192.168.0.0/24, 192.168.1.0/24
+
+# ============================================================
+# MAILBOX SETTINGS
+#
+# home_mailbox → where to store emails for each user
+#                Maildir/ format stores each email as a separate file
+#                inside the user's home directory.
+#                More reliable than mbox (single file) format.
+# ============================================================
+home_mailbox = Maildir/

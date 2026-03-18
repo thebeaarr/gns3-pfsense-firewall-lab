@@ -113,11 +113,49 @@ https://192.168.1.1
 
 The file `gns3/firewall.gns3` contains the full topology of the lab.
 
-To use it:
+### How to use it
 
 1. Open GNS3
 2. Import or open the `.gns3` file
-3. Ensure required images/templates (pfSense, Docker nodes) are available
-4. Start the topology
+3. Ensure pfSense and Docker support are configured in GNS3
+4. Build the required Docker containers from the provided Dockerfiles
+5. Start the topology
 
-Note: container images and system images are not included in this repository.
+### Containers
+
+All service containers are defined in the `containers/` directory.
+
+Each container must be built manually using its Dockerfile, for example:
+
+```bash
+cd containers/dns
+docker build -t gns3-dns .
+``` 
+
+## Access Requirements
+
+To interact with the lab, two access methods are possible:
+
+### Option 1 — Dedicated Virtual Machines (Recommended)
+
+The lab requires two virtual machines:
+
+- **Attacker VM**
+  - Connected to the WAN / Client network
+  - Used to simulate external attacks and test firewall rules
+
+- **Administration VM (admin-pfsense)**
+  - Connected to the Administration network
+  - Used to access and configure the pfSense web dashboard
+
+This setup provides full isolation and better control over testing scenarios.
+
+---
+
+### Option 2 — Using GNS3 Cloud (Alternative)
+
+Instead of using a dedicated administration VM, it is possible to:
+
+- Use a **GNS3 Cloud node**
+- Bind it to a host interface (e.g., `eth0` or `wlan0`)
+- Access pfSense directly from the host machine browser

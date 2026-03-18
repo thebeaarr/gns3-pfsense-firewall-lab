@@ -108,3 +108,16 @@ This structure prepares the environment for later implementation of:
 
 Access is performed from the administration network using:
 https://192.168.1.1
+
+## GNS3 Project
+
+The file `gns3/firewall.gns3` contains the full topology of the lab.
+
+To use it:
+
+1. Open GNS3
+2. Import or open the `.gns3` file
+3. Ensure required images/templates (pfSense, Docker nodes) are available
+4. Start the topology
+
+Note: container images and system images are not included in this repository.
